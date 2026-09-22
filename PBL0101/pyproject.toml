@@ -1,0 +1,20 @@
+[project]
+name = "pbl0101"
+version = "0.1.0"
+description = "Simple Project Hello World using FastAPI"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.141.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.fastapi]
+entrypoint = "app.main:app"
+
+[tool.uv.build-backend]
+module-name = "app"
+module-root = "."
