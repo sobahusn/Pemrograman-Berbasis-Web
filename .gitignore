@@ -1,0 +1,110 @@
+# Environtment
+.env
+.env.*
+*.env
+!.env.example
+!.env.template
+*.pem
+*.key
+*.cert
+
+# Dependencies & package managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+
+# Cache & artifacts
+.angular/
+.parcel-cache/
+.turbo/
+.cache/
+.vite/
+
+# Bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Package & test caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Composer dependencies
+vendor/
+composer.phar
+
+# Laravel cache & storage
+bootstrap/cache/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+**/bootstrap/cache/*
+**/storage/framework/cache/*
+**/storage/framework/sessions/*
+**/storage/framework/views/*
+**/storage/logs/*
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# JetBrains (PhpStorm, WebStorm, PyCharm, dll.)
+.idea/
+
+# Editor lain
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+
+# Linux
+.directory
+.fuse_hidden*
+
+# Logs
+*.log
+tmp/
+temp/
