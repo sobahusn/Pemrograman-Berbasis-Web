@@ -17,3 +17,8 @@ async def read_root(request: Request):
             "description": "Simple Project Hello World using FastAPI",
         },
     )
+
+
+@app.get("/hello-world")
+async def hello_world():
+    return {"message": "Hello World"}
