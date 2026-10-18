@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Mangement App</title>
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <header
+    class="container-fluid p-4 flex-column align-items-center justify-content-center text-center bg-light shadow-sm">
+    <!-- Header content -->
+    {% include 'components/header.html' %}
+  </header>
+
+  <main class="container-fluid px-4">
+    <section class="d-flex flex-column flex-md-row align-items-center justify-content-between mt-4">
+      <!-- Add New Car Button -->
+      {% include 'components/add_modal.html' %}
+
+      <!-- Search Form -->
+      {% include 'components/search_form.html' %}
+    </section>
+
+    <section class="card shadow-sm border-0 mt-4" aria-label="Car data list">
+      <!-- Table of Cars -->
+      {% include 'components/table_list.html' %}
+    </section>
+  </main>
+
+  <footer class="text-center py-3 mt-4">
+    <!-- Footer content -->
+    {% include 'components/footer.html' %}
+  </footer>
+
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
