@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
-import json, requests
+import json
+
+import requests
+from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -150,4 +152,4 @@ def searchcar():
 
 if __name__ == "__main__":
 
-    app.run(host="0.0.0.0", debug="True", port=5011)
+    app.run(host="0.0.0.0", debug=True, port=5011)
