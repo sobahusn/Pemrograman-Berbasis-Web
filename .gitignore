@@ -108,3 +108,4 @@ Desktop.ini
 *.log
 tmp/
 temp/
+.run-logs
