@@ -1,0 +1,55 @@
+<div class="card-body p-0 table-responsive">
+  <section class=" table-responsive">
+    <table class="table table-hover align-middle mb-0 table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col" class="text-center" style="width: 50px;">No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Model</th>
+          <th scope="col" class="text-center">Price</th>
+          <th scope="col" class="text-center" style="width: 150px;">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for car in cars %}
+        <tr>
+          <td class="text-center fw-bold text-secondary">{{ car.id }}</td>
+          <td class="fw-semibold">{{ car.carname }}</td>
+          <td><span class="badge bg-light text-dark border">{{ car.carbrand }}</span></td>
+          <td>{{ car.carmodel }}</td>
+          <td class="text-center fw-bold text-success">${{ car.carprice }}</td>
+          <td class="text-center">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Car Actions">
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                data-bs-target="#editModal{{ car.id }}">
+                <i class="bi bi-pencil"></i> Edit
+              </button>
+              <a href="/cars/delete/{{ car.id }}" class="btn btn-outline-danger"
+                onclick="return confirm('Apakah Anda yakin ingin menghapus mobil ini?');" title="Delete Car">
+                <i class="bi bi-trash"></i> Delete
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+
+        <tr>
+          <td colspan="6" class="text-center py-4 text-muted">
+            <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+            No cars found.
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<!-- Pagination -->
+{% include 'components/pagination.html' %}
+
+<!-- Edit Modal -->
+{% include 'components/edit_modal.html' %}

@@ -1,0 +1,17 @@
+<form action="/cars/search" method="GET">
+  <div class="input-group mt-3">
+    <div class="position-relative flex-grow-1">
+      <input type="text" class="form-control" placeholder="Nama, Brand, atau Model" name="query" value="{{request.query_params.get('query', '')
+      }}" />
+
+      {%- if request.query_params.get('query') -%}
+      <a href="/" class="btn-close position-absolute top-50 end-0 translate-middle-y me-3 text-decoration-none"
+        style="z-index: 5;" aria-label="Clear search" title="Clear search">
+      </a>
+      {%- endif -%}
+    </div>
+
+
+    <button class="btn btn-outline-secondary" type="submit">Cari</button>
+  </div>
+</form>

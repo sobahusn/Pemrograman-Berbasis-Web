@@ -1,0 +1,46 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+  <i class="bi bi-plus-lg"></i> Tambah baru
+</button>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <header class="modal-header">
+        <h2 class="modal-title fs-5" id="addModalLabel">Tambah Mobil Baru</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </header>
+
+      <form action="/cars/create" method="POST">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="carname" class="form-label">Car Name</label>
+            <input type="text" class="form-control" id="carname" name="carname" placeholder="Toyota Avanza" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="carbrand" class="form-label">Car Brand</label>
+            <input type="text" class="form-control" id="carbrand" name="carbrand" placeholder="Toyota" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="carmodel" class="form-label">Car Model</label>
+            <input type="text" class="form-control" id="carmodel" name="carmodel" placeholder="Avanza" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="carprice" class="form-label">Car Price</label>
+            <input type="number" step="any" class="form-control" id="carprice" name="carprice" placeholder="0" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

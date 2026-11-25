@@ -1,0 +1,48 @@
+{% for car in cars %}
+<div class="modal fade" id="editModal{{ car.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ car.id }}"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editModalLabel{{ car.id }}">Edit {{ car.carname }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="/cars/update/{{ car.id }}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="carname_{{ car.id }}" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="carname_{{ car.id }}" name="name"
+                            value="{{ car.carname }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="carbrand_{{ car.id }}" class="form-label">Brand</label>
+                        <input type="text" class="form-control" id="carbrand_{{ car.id }}" name="brand"
+                            value="{{ car.carbrand }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="carmodel_{{ car.id }}" class="form-label">Model</label>
+                        <input type="text" class="form-control" id="carmodel_{{ car.id }}" name="model"
+                            value="{{ car.carmodel }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="carprice_{{ car.id }}" class="form-label">Price</label>
+                        <input type="number" step="any" class="form-control" id="carprice_{{ car.id }}" name="price"
+                            value="{{ car.carprice }}" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
