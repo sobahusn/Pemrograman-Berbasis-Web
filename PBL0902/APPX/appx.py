@@ -1,9 +1,9 @@
-import asyncio
 from pathlib import Path
+from urllib.parse import urlencode
 
 import httpx
 import uvicorn
-from fastapi import FastAPI, Form, HTTPException, Request
+from fastapi import FastAPI, Form, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -23,7 +23,10 @@ def service_info(ms: str) -> tuple[str, str]:
     try:
         return SERVICES[ms.upper()]
     except KeyError as error:
-        raise HTTPException(status_code=404, detail="Microservice tidak ditemukan") from error
+        raise HTTPException(
+            status_code=404,
+            detail="Microservice tidak ditemukan",
+        ) from error
 
 
 async def service_request(ms: str, method: str = "GET", **kwargs) -> httpx.Response:
@@ -45,10 +48,6 @@ async def service_request(ms: str, method: str = "GET", **kwargs) -> httpx.Respo
         ) from error
 
 
-def service_page(ms: str) -> str:
-    return {"MS1": "ms1", "MS2": "ms2", "MS3": "ms3"}[ms.upper()]
-
-
 def render(
     request: Request,
     template: str,
@@ -62,16 +61,58 @@ def render(
 
 
 @app.get("/", response_class=HTMLResponse)
-async def masukkeindeks(request: Request):
-    rows_dba, rows_dbb = await asyncio.gather(
-        service_request("MS1"),
-        service_request("MS3"),
-    )
+async def masukkeindeks(
+    request: Request,
+    ms: str = "MS1",
+    page: int = Query(default=1, ge=1),
+    query: str = "",
+):
+    _, db_name = service_info(ms)
+    ms = ms.upper()
+    rows = (await service_request(ms)).json()
+    if query:
+        normalized_query = query.casefold()
+        rows = [
+            car
+            for car in rows
+            if any(
+                normalized_query in str(car[field]).casefold()
+                for field in ("carname", "carbrand", "carmodel", "carprice")
+            )
+        ]
+
+    limit = 10
+    total_pages = max(1, (len(rows) + limit - 1) // limit)
+    page = min(page, total_pages)
+    start_index = (page - 1) * limit
+    page_urls = [
+        (
+            number,
+            "/?"
+            + urlencode(
+                {
+                    "ms": ms,
+                    "page": number,
+                    **({"query": query} if query else {}),
+                }
+            ),
+        )
+        for number in range(1, total_pages + 1)
+    ]
     return render(
         request,
         "index.html",
-        rows_dba=rows_dba.json(),
-        rows_dbb=rows_dbb.json(),
+        cars=rows[start_index : start_index + limit],
+        page=page,
+        total_pages=total_pages,
+        page_urls=page_urls,
+        previous_url=page_urls[max(0, page - 2)][1],
+        next_url=page_urls[min(total_pages - 1, page)][1],
+        start_index=start_index,
+        query=query,
+        active_ms=ms,
+        db_name=db_name,
+        services=SERVICES,
     )
 
 
@@ -134,7 +175,7 @@ async def createcarsave(
             "description": f"input from appx to {ms.upper()}",
         },
     )
-    return RedirectResponse(url=f"/{service_page(ms)}", status_code=303)
+    return RedirectResponse(url=f"/?ms={ms.upper()}", status_code=303)
 
 
 @app.get("/readcar/{ms}", response_class=HTMLResponse)
@@ -195,7 +236,7 @@ async def updatecar_by_id(request: Request, ms: str, car_id: int):
                 error="Semua field harus diisi.",
             )
         await service_request(ms, "PUT", json={"id": car_id, **values})
-        return RedirectResponse(url=f"/readcar/{ms.upper()}", status_code=303)
+        return RedirectResponse(url=f"/?ms={ms.upper()}", status_code=303)
 
     return render(
         request,
@@ -221,7 +262,7 @@ async def deletecar(request: Request, ms: str):
 @app.post("/deletecar/{ms}/{car_id}")
 async def deletecar_by_id(ms: str, car_id: int):
     await service_request(ms, "DELETE", json={"id": car_id})
-    return RedirectResponse(url=f"/readcar/{ms.upper()}", status_code=303)
+    return RedirectResponse(url=f"/?ms={ms.upper()}", status_code=303)
 
 
 @app.get("/searchcar/{ms}", response_class=HTMLResponse)

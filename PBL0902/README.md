@@ -19,7 +19,8 @@ Struktur dan alur mengikuti PBL0901: APPX menampilkan data dari tiga
 microservice; MS1 dan MS2 menggunakan database bersama DB-A, sedangkan MS3
 menggunakan DB-B. Perbedaannya, seluruh aplikasi dan REST API di PBL0902
 menggunakan FastAPI, bukan Flask. Database PBL0902 yang sudah ada dipertahankan
-sebagai DB-A.
+sebagai DB-A. UI APPX mengikuti tampilan PBL0602, dengan pemilih MS1/MS2/MS3
+untuk menentukan service tujuan operasi tambah, ubah, hapus, dan pencarian.
 
 ## Menjalankan
 

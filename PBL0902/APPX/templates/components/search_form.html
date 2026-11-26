@@ -1,0 +1,15 @@
+<form action="/" method="GET" class="w-100" style="max-width: 24rem;">
+  <input type="hidden" name="ms" value="{{ active_ms }}">
+  <div class="input-group">
+    <div class="position-relative flex-grow-1">
+      <input type="search" class="form-control" placeholder="Nama, Brand, atau Model" name="query"
+        value="{{ query }}" aria-label="Cari mobil">
+      {% if query %}
+      <a href="/?ms={{ active_ms }}"
+        class="btn-close position-absolute top-50 end-0 translate-middle-y me-3 text-decoration-none"
+        style="z-index: 5;" aria-label="Hapus pencarian" title="Hapus pencarian"></a>
+      {% endif %}
+    </div>
+    <button class="btn btn-outline-secondary" type="submit">Cari</button>
+  </div>
+</form>
