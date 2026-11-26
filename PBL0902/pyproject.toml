@@ -1,0 +1,11 @@
+[project]
+name = "pbl0902"
+version = "0.1.0"
+description = "FastAPI version of the PBL0901 car microservices"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.143.0",
+    "httpx>=0.27.0",
+    "peewee>=4.5.3",
+]
